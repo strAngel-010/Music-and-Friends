@@ -20,8 +20,8 @@ public interface UserService {
     @GET("/mainpage/{ID}/")
     Call<User> getMainPageContent(@Path("ID") int ID);
 
-    @GET("/searchpage/{ID}/{count}/")
-    Call<User[]> getSearchPageContent(@Path("ID") int ID, @Path("count") int count);
+    @GET("/searchpage/{ID}/{count}/{params}/")
+    Call<User[]> getSearchPageContent(@Path("ID") int ID, @Path("count") int count, @Path("params") String params);
 
     @GET("/avatars/{ID}/")
     Call<ResponseBody> downloadAvatar(@Path("ID") int ID);

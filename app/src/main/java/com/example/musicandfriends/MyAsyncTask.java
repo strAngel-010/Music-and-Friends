@@ -131,11 +131,19 @@ class MyAsyncTask extends AsyncTask<String, String, String> {
             }
 
             if (args.equals("search_page")){
-                Call<User[]> call = service.getSearchPageContent(Integer.parseInt(params[0]), 5);
+                Call<User[]> call = service.getSearchPageContent(Integer.parseInt(params[0]), 5, "null");
                 Response<User[]> response = call.execute();
                 User[] userList = response.body();
                 pageFragment.userList = userList;
             }
+
+            if (args.equals("new_search_page")){
+                Call<User[]> call = service.getSearchPageContent(Integer.parseInt(params[0]), 5, params[1]);
+                Response<User[]> response = call.execute();
+                User[] userList = response.body();
+                pageFragment.userList = userList;
+            }
+
             if (args.equals("set_music_prefs")){
                 service.setMusicPrefs(pageFragment.ID, pageFragment.curUser.getMusicPreferences()).execute();
             }
@@ -161,7 +169,7 @@ class MyAsyncTask extends AsyncTask<String, String, String> {
         if (args.equals("profile_page")){
             profileActivity.friends.setAdapter(new RecyclerAdapter(profileActivity.makeFriendsList()));
         }
-        if (args.equals("search_page")){
+        if (args.equals("search_page") || args.equals("new_search_page")){
             pageFragment.listView.setAdapter(new SearchAdapter(view.getContext(), 0, pageFragment.makeUser()));
         }
         if (args.equals("friends_del")){

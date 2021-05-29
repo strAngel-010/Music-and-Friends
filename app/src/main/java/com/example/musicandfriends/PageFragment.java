@@ -188,7 +188,16 @@ public class PageFragment extends Fragment implements View.OnClickListener, Adap
         }
 
         if (v.getId() == R.id.searchButton){
-
+            String text = String.valueOf(searchEditText.getText());
+            if (!text.equals("")){
+                args = "new_search_page";
+                pd.show();
+                new MyAsyncTask(this).execute(String.valueOf(ID), text);
+            } else {
+                args = "search_page";
+                pd.show();
+                new MyAsyncTask(this).execute(String.valueOf(ID), "null");
+            }
         }
 
         if (v.getId() == R.id.mainPageExit){
@@ -203,10 +212,6 @@ public class PageFragment extends Fragment implements View.OnClickListener, Adap
 
         if (v.getId() == R.id.mainPageUpdate){
             ((MainActivity)getActivity()).pager.setAdapter(((MainActivity)getActivity()).pagerAdapter);
-            String text = String.valueOf(searchEditText.getText());
-            if (text != null){
-                
-            }
         }
     }
 
